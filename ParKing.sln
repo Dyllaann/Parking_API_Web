@@ -2,8 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data.Entities", "ParKing.Data.Entities\ParKing.Data.Entities.csproj", "{4499AC77-C37C-4177-96B0-5D47DCD4D04F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data.Repository", "ParKing.Data.Repository\ParKing.Data.Repository.csproj", "{C235E9E3-69BD-4400-A648-72971D24EB78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Business.Services", "ParKing.Business.Services\ParKing.Business.Services.csproj", "{F2101522-874F-4606-8470-720D2C1E984B}"
@@ -16,16 +14,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Utils.Utilities", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParKing.Application.RaspberryApi", "ParKing.Application.RaspberryApi\ParKing.Application.RaspberryApi.csproj", "{710173E3-0558-41E7-BA3A-BF4CEF73F306}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data", "ParKing.Data\ParKing.Data.csproj", "{19FF7427-112C-40D2-BA61-8BFE48D159B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4499AC77-C37C-4177-96B0-5D47DCD4D04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4499AC77-C37C-4177-96B0-5D47DCD4D04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4499AC77-C37C-4177-96B0-5D47DCD4D04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4499AC77-C37C-4177-96B0-5D47DCD4D04F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C235E9E3-69BD-4400-A648-72971D24EB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C235E9E3-69BD-4400-A648-72971D24EB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C235E9E3-69BD-4400-A648-72971D24EB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +46,10 @@ Global
 		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

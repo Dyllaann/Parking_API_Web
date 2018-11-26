@@ -3,25 +3,42 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParKing.Utils.Configuration;
+using ParKing.Utils.Configuration.Model;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace ParKing.Application.API
+namespace ParKing.Application.MobileApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public IServiceCollection ServiceCollection { get; set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ServiceCollection = services;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddOptions();
+            
             AddSwagger(services);
+            AddConfig();
         }
+
+        private void AddConfig()
+        {
+            var configSection = Configuration.GetSection("ConfigRoot");
+            ServiceCollection.Configure<ConfigRoot>(configSection);
+            var config = configSection.Get<ConfigRoot>();
+            var configKeys = new Config(config);
+            ServiceCollection.AddSingleton(configKeys);
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

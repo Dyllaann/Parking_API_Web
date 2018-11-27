@@ -5,12 +5,14 @@ namespace ParKing.Data
 {
     public class ParKingContext : DbContext
     {
+        private Config Config { get; }
+
+
         protected ParKingContext(Config config)
         {
             Config = config;
         }
 
-        private Config Config { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

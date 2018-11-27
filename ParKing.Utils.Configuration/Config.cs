@@ -11,13 +11,16 @@ namespace ParKing.Utils.Configuration
             Main = cfg;
         }
 
-        public string Test()
-        {
-            var main = Main;
-            var db = main.Database;
-            var conn = db.ConnectionString;
-            return conn;
-        }
+        public string DatabaseConnectionString => GetConfigurationOption(Main.Database.ConnectionString, "Database Connectionstring");
 
+        private static string GetConfigurationOption(string configValue, string configKey)
+        {
+            if (string.IsNullOrEmpty(configValue))
+            {
+                throw new MissingConfigurationException($"Missing config value for {configKey}");
+            }
+
+            return configValue;
+        }
     }
 }

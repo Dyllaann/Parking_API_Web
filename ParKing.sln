@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data", "ParKing.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParKing.Tests", "ParKing.Tests\ParKing.Tests.csproj", "{BAF8EE97-4C9E-4F49-9D0A-47C589A3E179}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParKing.Data.Engine", "ParKing.Data.Engine\ParKing.Data.Engine.csproj", "{76CC7297-9529-472F-B454-721C119D843C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{BAF8EE97-4C9E-4F49-9D0A-47C589A3E179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAF8EE97-4C9E-4F49-9D0A-47C589A3E179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF8EE97-4C9E-4F49-9D0A-47C589A3E179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76CC7297-9529-472F-B454-721C119D843C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76CC7297-9529-472F-B454-721C119D843C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76CC7297-9529-472F-B454-721C119D843C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76CC7297-9529-472F-B454-721C119D843C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

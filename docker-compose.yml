@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  parking.application.mobileapi:
+    image: ${DOCKER_REGISTRY}parkingapplicationmobileapi
+    build:
+      context: .
+      dockerfile: ParKing.Application.MobileApi/Dockerfile
+
+  parking.application.raspberryapi:
+    image: ${DOCKER_REGISTRY}parkingapplicationraspberryapi
+    build:
+      context: .
+      dockerfile: ParKing.Application.RaspberryApi/Dockerfile
+

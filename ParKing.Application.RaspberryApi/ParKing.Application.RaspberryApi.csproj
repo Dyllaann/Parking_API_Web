@@ -20,4 +20,10 @@
     <ProjectReference Include="..\ParKing.Utils.Configuration\ParKing.Utils.Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

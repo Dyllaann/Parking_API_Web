@@ -12,8 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Utils.Configuration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Utils.Utilities", "ParKing.Utils.Utilities\ParKing.Utils.Utilities.csproj", "{50C5F4CD-9421-48ED-8A91-DC3F5AEDF43A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Application.RaspberryApi", "ParKing.Application.RaspberryApi\ParKing.Application.RaspberryApi.csproj", "{710173E3-0558-41E7-BA3A-BF4CEF73F306}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data", "ParKing.Data\ParKing.Data.csproj", "{19FF7427-112C-40D2-BA61-8BFE48D159B6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Tests", "ParKing.Tests\ParKing.Tests.csproj", "{BAF8EE97-4C9E-4F49-9D0A-47C589A3E179}"
@@ -21,6 +19,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParKing.Data.Engine", "ParKing.Data.Engine\ParKing.Data.Engine.csproj", "{76CC7297-9529-472F-B454-721C119D843C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EB16DA18-0741-4BD7-B4F9-4D05B7A1B38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParKing.Application.RaspberryApi", "ParKing.Application.RaspberryApi\ParKing.Application.RaspberryApi.csproj", "{1F9DC049-EAB8-4219-81BE-1DFD0A787E22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,10 +48,6 @@ Global
 		{50C5F4CD-9421-48ED-8A91-DC3F5AEDF43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50C5F4CD-9421-48ED-8A91-DC3F5AEDF43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50C5F4CD-9421-48ED-8A91-DC3F5AEDF43A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{710173E3-0558-41E7-BA3A-BF4CEF73F306}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19FF7427-112C-40D2-BA61-8BFE48D159B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +64,10 @@ Global
 		{EB16DA18-0741-4BD7-B4F9-4D05B7A1B38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB16DA18-0741-4BD7-B4F9-4D05B7A1B38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB16DA18-0741-4BD7-B4F9-4D05B7A1B38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F9DC049-EAB8-4219-81BE-1DFD0A787E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9DC049-EAB8-4219-81BE-1DFD0A787E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9DC049-EAB8-4219-81BE-1DFD0A787E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9DC049-EAB8-4219-81BE-1DFD0A787E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

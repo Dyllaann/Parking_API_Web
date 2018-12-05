@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace ParKing.Application.MobileApi
             ServiceCollection = services;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOptions();
-            
+
             AddSwagger(services);
             AddConfig();
         }
@@ -44,15 +45,22 @@ namespace ParKing.Application.MobileApi
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            app.UseSwagger(c =>
+                {
+                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                    {
+                        swaggerDoc.BasePath = string.Empty;
+                    });
+                });
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ParKing");
-            });
-            
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.RoutePrefix = "docs";
+                });
+
             //Set develop settings
             if (env.IsDevelopment())
             {
@@ -73,7 +81,7 @@ namespace ParKing.Application.MobileApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "ParKing API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "ParKing MobileAPI", Version = "v1" });
             });
         }
     }

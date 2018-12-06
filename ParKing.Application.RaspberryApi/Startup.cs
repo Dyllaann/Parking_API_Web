@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParKing.Business.Services;
 using ParKing.Data;
+using ParKing.Data.Repository;
 using ParKing.Utils.Configuration;
 using ParKing.Utils.Configuration.Model;
 using Swashbuckle.AspNetCore.Swagger;
@@ -93,7 +94,9 @@ namespace ParKing.Application.RaspberryApi
 
         private static void AddDependencies(IServiceCollection services)
         {
+            services.AddTransient<AvailabilityRepository>();
             services.AddTransient<AvailabilityService>();
+
         }
         #endregion
     }

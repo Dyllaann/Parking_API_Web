@@ -24,14 +24,24 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("")]
         public IActionResult UpdateSingleAvailability(UpdateAvailability update)
         {
-            return Ok();
+            if (update == null) return BadRequest();
+            
+            var success = AvailabilityService.UpdateSingleAvailability(update);
+            return success
+                ? Ok()
+                : (IActionResult) BadRequest();
         }
 
         [HttpPatch]
         [Route("")]
         public IActionResult UpdateBatchAvailability(List<UpdateAvailability> updates)
         {
-            return Ok();
+            if (updates.Count == 0) return BadRequest();
+
+            var success = AvailabilityService.UpdateMultipleAvailabilities(updates);
+            return success
+                ? Ok()
+                : (IActionResult) BadRequest();
         }
     }
 }

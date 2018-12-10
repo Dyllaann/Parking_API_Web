@@ -24,6 +24,7 @@ namespace ParKing.Application.RaspberryApi
                     config.SetBasePath(Directory.GetCurrentDirectory());
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
                     config.AddJsonFile("secrets.json", optional: true, reloadOnChange: false);
+                    config.AddEnvironmentVariables();
                     config.AddCommandLine(args);
                 })
                 .UseStartup<Startup>();

@@ -1,4 +1,5 @@
 ﻿using ParKing.Utils.Configuration.Model;
+using Serilog;
 
 namespace ParKing.Utils.Configuration
 {
@@ -12,15 +13,15 @@ namespace ParKing.Utils.Configuration
         }
 
         public string DatabaseConnectionString => GetConfigurationOption(Main.Database.ConnectionString, "Database Connectionstring");
+        public string LogzIoToken => GetConfigurationOption(Main.Logging.LogzIoToken, "LogzIoToken");
+
 
         private static string GetConfigurationOption(string configValue, string configKey)
         {
-            if (string.IsNullOrEmpty(configValue))
-            {
-                throw new MissingConfigurationException($"Missing config value for {configKey}");
-            }
+            if (!string.IsNullOrEmpty(configValue)) return configValue;
 
-            return configValue;
+            Log.Logger.Fatal($"Missing Configuration for {configKey}");
+            throw new MissingConfigurationException(configKey);
         }
     }
 }

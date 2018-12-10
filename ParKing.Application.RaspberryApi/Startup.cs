@@ -11,6 +11,7 @@ using ParKing.Data.Repository;
 using ParKing.Utils.Configuration;
 using ParKing.Utils.Configuration.Model;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParKing.Application.RaspberryApi
@@ -33,13 +34,13 @@ namespace ParKing.Application.RaspberryApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOptions();
             services.AddEntityFrameworkSqlServer();
-
-            AddSwagger(services);
+            
             AddConfig(services);
+            AddLogging();
+            AddSwagger(services);
             AddDatabase(services);
             AddDependencies(services);
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -77,6 +78,15 @@ namespace ParKing.Application.RaspberryApi
         }
 
         #region Registration of Services
+        
+        private void AddLogging()
+        {
+            new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Logzio(Config.LogzIoToken)
+                .CreateLogger();
+        }
+
         private static void AddSwagger(IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -105,12 +115,6 @@ namespace ParKing.Application.RaspberryApi
                     optionsBuilder.UseMySql(Config.DatabaseConnectionString);
                     optionsBuilder.UseInternalServiceProvider(serviceProvider);
                 });
-            //options => options.UseMySql(Config.DatabaseConnectionString,
-            //        mySqlOptions =>
-            //        {
-            //            mySqlOptions.ServerVersion(new Version(10, 2, 19), ServerType.MariaDb);
-            //        }
-            //    ));
         }
 
         private static void AddDependencies(IServiceCollection services)

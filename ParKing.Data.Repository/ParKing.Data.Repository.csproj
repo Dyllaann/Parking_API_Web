@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.7.1" />
+    <PackageReference Include="Serilog.Sinks.Logzio" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ParKing.Data.Engine\ParKing.Data.Engine.csproj" />
     <ProjectReference Include="..\ParKing.Data\ParKing.Data.csproj" />
   </ItemGroup>

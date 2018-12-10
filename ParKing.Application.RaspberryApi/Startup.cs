@@ -11,6 +11,7 @@ using ParKing.Data.Repository;
 using ParKing.Utils.Configuration;
 using ParKing.Utils.Configuration.Model;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParKing.Application.RaspberryApi
@@ -34,10 +35,19 @@ namespace ParKing.Application.RaspberryApi
             services.AddOptions();
             services.AddEntityFrameworkSqlServer();
 
+            AddLogging();
             AddSwagger(services);
             AddConfig(services);
             AddDatabase(services);
             AddDependencies(services);
+        }
+
+        private static void AddLogging()
+        {
+            new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Logzio("VdzGwMyoaIZCvDPIwMdmeRQubMzibypt")
+                .CreateLogger();
         }
 
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParKing.Business.Services;
 using ParKing.Data.Engine;
 using ParKing.Utils.Configuration;
+using Serilog;
 
 namespace ParKing.Application.RaspberryApi.Controllers
 {
@@ -25,6 +26,7 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("")]
         public IActionResult UpdateSingleAvailability(UpdateAvailability update)
         {
+            Log.Logger.Information($"Received request at {Request.Path}");
             if (update == null) return BadRequest();
             
             var success = AvailabilityService.UpdateSingleAvailability(update);

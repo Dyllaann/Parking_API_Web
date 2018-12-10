@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ParKing.Data.Engine\ParKing.Data.Engine.csproj" />
     <ProjectReference Include="..\ParKing.Data.Repository\ParKing.Data.Repository.csproj" />
   </ItemGroup>

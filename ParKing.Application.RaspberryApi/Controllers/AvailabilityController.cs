@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParKing.Business.Services;
@@ -45,6 +46,16 @@ namespace ParKing.Application.RaspberryApi.Controllers
             return success
                 ? Ok()
                 : (IActionResult) BadRequest();
+        }
+
+        [HttpGet]
+        [Route("test")]
+        public async Task<IActionResult> TestCall()
+        {
+            var httpclient = new HttpClient();
+            var x = await httpclient.GetAsync("localhost:8001/api/Test");
+
+            return Ok(await x.Content.ReadAsStringAsync());
         }
     }
 }

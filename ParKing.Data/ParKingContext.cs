@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParKing.Data.Engine;
 using ParKing.Utils.Configuration;
 
 namespace ParKing.Data
@@ -7,16 +8,22 @@ namespace ParKing.Data
     {
         private Config Config { get; }
 
-
-        protected ParKingContext(Config config)
+        public ParKingContext(Config config)
         {
             Config = config;
         }
 
+        public ParKingContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(Config.DatabaseConnectionString);
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySql(Config.DatabaseConnectionString);
         }
+
+        public DbSet<ParkingLot> ParkingLots { get; set; }
+        public DbSet<ParkingAvailability> ParkingAvailabilities { get; set; }
+        public DbSet<ParkingLocation> ParkingLocations { get; set; }
+
     }
 }

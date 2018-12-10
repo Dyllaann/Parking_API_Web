@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParKing.Data.Engine
 {
-    public class ParkingLocation
+    public class ParkingLocation : BaseEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -12,6 +13,8 @@ namespace ParKing.Data.Engine
 
 
         //EF Relations
+        [ForeignKey("ParkingLot")]
+        public Guid ParkingLotId { get; set; }
         public ParkingLot Lot { get;set; }
     }
 }

@@ -9,20 +9,52 @@ namespace ParKing.Business.Services
 {
     public class AvailabilityService
     {
-        private AvailabilityRepository AvailabilityRepository { get; }
+        private ParkingLotRepository ParkingLotRepository { get; }
+        private ParkingAvailabilityRepository ParkingAvailabilityRepository { get; }
         private Config Config { get; }
 
-        public AvailabilityService(AvailabilityRepository availabilityRepository, Config config)
+        public AvailabilityService(ParkingLotRepository parkingLotRepository, ParkingAvailabilityRepository parkingAvailabilityRepository, Config config)
         {
-            AvailabilityRepository = availabilityRepository;
+            ParkingLotRepository = parkingLotRepository;
+            ParkingAvailabilityRepository = parkingAvailabilityRepository;
             Config = config;
         }
 
         #region Public Methods
 
-        public bool UpdateSingleAvailability(UpdateAvailability update)
+        public UpdateStatus UpdateSingleAvailability(UpdateAvailability update)
         {
-            return true;
+            var currentLot = ParkingLotRepository.GetParkingLotById(update.Id);
+            if (currentLot == null)
+            {
+                return UpdateStatus.NonExistent;
+            }
+
+            var availability = ParkingAvailabilityRepository.GetAvailabilityByLotId(currentLot.Id);
+            if (availability == null)
+            {
+                var newAvailability = new ParkingAvailability()
+                {
+                    Id = Guid.NewGuid(),
+                    Available = update.Availability,
+                    Lot = currentLot,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.MinValue
+                };
+                newAvailability.Lot = currentLot;
+                currentLot.Availability = newAvailability;
+
+                ParkingLotRepository.UpdateParkingLot(currentLot);
+                ParkingAvailabilityRepository.AddAvailability(newAvailability);
+            }
+            else
+            {
+                currentLot.Availability.Available = update.Availability;
+                currentLot.Availability.UpdatedAt = DateTime.UtcNow;
+                ParkingLotRepository.UpdateParkingLot(currentLot);
+            }
+
+            return UpdateStatus.Ok;
         }
 
         public bool UpdateMultipleAvailabilities(List<UpdateAvailability> updates)
@@ -31,7 +63,7 @@ namespace ParKing.Business.Services
             foreach (var update in updates)
             {
                 var singleUpdateSuccess = UpdateSingleAvailability(update);
-                if (!singleUpdateSuccess)
+                if (singleUpdateSuccess != UpdateStatus.Ok)
                 {
                     success = false;
                 }
@@ -39,7 +71,7 @@ namespace ParKing.Business.Services
 
             return success;
         }
-        
+
 
         #endregion
 

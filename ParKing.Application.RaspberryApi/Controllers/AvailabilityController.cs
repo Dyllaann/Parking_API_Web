@@ -9,6 +9,7 @@ using ParKing.Utils.Configuration;
 
 namespace ParKing.Application.RaspberryApi.Controllers
 {
+    [Route("api/[controller]")]
     public class AvailabilityController : Controller
     {
         public Config Configuration{get; set; }
@@ -27,13 +28,13 @@ namespace ParKing.Application.RaspberryApi.Controllers
             if (update == null) return BadRequest();
             
             var success = AvailabilityService.UpdateSingleAvailability(update);
-            return success
+            return success == UpdateStatus.Ok
                 ? Ok()
                 : (IActionResult) BadRequest();
         }
 
         [HttpPatch]
-        [Route("")]
+        [Route("batch")]
         public IActionResult UpdateBatchAvailability(List<UpdateAvailability> updates)
         {
             if (updates.Count == 0) return BadRequest();

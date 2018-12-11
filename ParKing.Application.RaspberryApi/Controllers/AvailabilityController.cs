@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParKing.Business.Services;
@@ -52,10 +53,14 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("test")]
         public async Task<IActionResult> TestCall()
         {
-            var httpclient = new HttpClient();
-            var x = await httpclient.GetAsync("localhost:8001/api/Test");
-
-            return Ok(await x.Content.ReadAsStringAsync());
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:8001/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var x = await client.GetAsync("/api/Test");
+                return Ok(await x.Content.ReadAsStringAsync());
+            }
         }
     }
 }

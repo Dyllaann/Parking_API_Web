@@ -36,10 +36,12 @@ namespace ParKing.Application.RaspberryApi
             services.AddEntityFrameworkSqlServer();
             
             AddConfig(services);
+            Console.WriteLine(Config.DatabaseConnectionString);
             AddLogging();
             AddSwagger(services);
             AddDatabase(services);
             AddDependencies(services);
+            Log.Logger.Information($"Startup complete at {DateTime.UtcNow}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +87,7 @@ namespace ParKing.Application.RaspberryApi
                 .MinimumLevel.Verbose()
                 .WriteTo.Logzio(Config.LogzIoToken)
                 .CreateLogger();
+            Log.Logger.Information($"Logger initialized at {DateTime.UtcNow}");
         }
 
         private static void AddSwagger(IServiceCollection services)

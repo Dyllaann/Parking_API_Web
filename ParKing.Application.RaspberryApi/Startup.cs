@@ -34,7 +34,7 @@ namespace ParKing.Application.RaspberryApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOptions();
             services.AddEntityFrameworkSqlServer();
-            
+
             AddConfig(services);
             Console.WriteLine(Config.DatabaseConnectionString);
             AddLogging();
@@ -80,12 +80,12 @@ namespace ParKing.Application.RaspberryApi
         }
 
         #region Registration of Services
-        
+
         private void AddLogging()
         {
             new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .WriteTo.Logzio(Config.LogzIoToken)
+                .WriteTo.Logzio(Config.LogzIoToken, 5, new TimeSpan(0, 0, 0, 10))
                 .CreateLogger();
             Log.Logger.Information($"Logger initialized at {DateTime.UtcNow}");
         }

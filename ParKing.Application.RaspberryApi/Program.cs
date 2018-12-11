@@ -29,16 +29,6 @@ namespace ParKing.Application.RaspberryApi
                     config.AddEnvironmentVariables();
                     config.AddCommandLine(args);
                 })
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Any, 80);
-                    if (Environment.GetEnvironmentVariable("environment") == "prod")
-                    {
-                        options.Listen(IPAddress.Any, 443,
-                            listenOptions => { listenOptions.UseHttps("cert.pfx", "parking2018testcert"); });
-                    }
-                })
-                .UseUrls("https://*:443")
                 .UseStartup<Startup>();
     }
 }

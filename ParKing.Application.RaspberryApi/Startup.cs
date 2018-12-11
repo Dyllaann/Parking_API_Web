@@ -36,7 +36,6 @@ namespace ParKing.Application.RaspberryApi
             services.AddEntityFrameworkSqlServer();
 
             AddConfig(services);
-            Console.WriteLine(Config.DatabaseConnectionString);
             AddLogging();
             AddSwagger(services);
             AddDatabase(services);
@@ -60,7 +59,7 @@ namespace ParKing.Application.RaspberryApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("swagger/v1/swagger.json", "My API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                     c.RoutePrefix = "docs";
                 });
 

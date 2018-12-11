@@ -48,26 +48,5 @@ namespace ParKing.Application.RaspberryApi.Controllers
                 ? Ok()
                 : (IActionResult) BadRequest();
         }
-
-        [HttpGet]
-        [Route("test")]
-        public async Task<IActionResult> TestCall()
-        {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("http://145.24.222.166:8001/");
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    var x = await client.GetAsync("/api/Test");
-                    return Ok(await x.Content.ReadAsStringAsync());
-                }
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
     }
 }

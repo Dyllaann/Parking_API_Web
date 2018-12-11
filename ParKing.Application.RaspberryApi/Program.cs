@@ -20,7 +20,7 @@ namespace ParKing.Application.RaspberryApi
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            new WebHostBuilder()
+            WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());

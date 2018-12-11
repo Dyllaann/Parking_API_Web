@@ -53,13 +53,20 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("test")]
         public async Task<IActionResult> TestCall()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("http://localhost:8001/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var x = await client.GetAsync("/api/Test");
-                return Ok(await x.Content.ReadAsStringAsync());
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:8001/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var x = await client.GetAsync("/api/Test");
+                    return Ok(await x.Content.ReadAsStringAsync());
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

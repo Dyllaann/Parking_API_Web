@@ -57,7 +57,7 @@ namespace ParKing.Application.RaspberryApi.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:8001/");
+                    client.BaseAddress = new Uri("http://145.24.222.166:8001/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var x = await client.GetAsync("/api/Test");

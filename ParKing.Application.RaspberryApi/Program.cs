@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +20,7 @@ namespace ParKing.Application.RaspberryApi
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            new WebHostBuilder()
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.SetBasePath(Directory.GetCurrentDirectory());
@@ -27,6 +29,16 @@ namespace ParKing.Application.RaspberryApi
                     config.AddEnvironmentVariables();
                     config.AddCommandLine(args);
                 })
+                .UseKestrel(options =>
+                {
+                    options.Listen(IPAddress.Any, 80);
+                    if (Environment.GetEnvironmentVariable("environment") == "prod")
+                    {
+                        options.Listen(IPAddress.Any, 443,
+                            listenOptions => { listenOptions.UseHttps("cert.pfx", "parking2018testcert"); });
+                    }
+                })
+                .UseUrls("https://*:443")
                 .UseStartup<Startup>();
     }
 }

@@ -53,7 +53,7 @@ namespace ParKing.Business.Services
             }
             else
             {
-                Log.Logger.Information($"Updating lot {currentLot.Id}");
+                Log.Logger.Information($"Updating lot {currentLot.Id}. New availability: {currentLot.Availability.Available}");
                 currentLot.Availability.Available = update.Availability;
                 currentLot.Availability.UpdatedAt = DateTime.UtcNow;
                 ParkingLotRepository.UpdateParkingLot(currentLot);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParKing.Business.Services;
@@ -28,7 +29,7 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("")]
         public IActionResult UpdateSingleAvailability(UpdateAvailability update)
         {
-            Log.Logger.Information($"Received request at {Request.Path}");
+            Log.Logger.Information($"Starting {MethodBase.GetCurrentMethod().Name}");
             if (update == null) return BadRequest();
             
             var success = AvailabilityService.UpdateSingleAvailability(update);
@@ -41,6 +42,7 @@ namespace ParKing.Application.RaspberryApi.Controllers
         [Route("batch")]
         public IActionResult UpdateBatchAvailability(List<UpdateAvailability> updates)
         {
+            Log.Logger.Information($"Starting {MethodBase.GetCurrentMethod().Name} for {updates.Count} updates");
             if (updates.Count == 0) return BadRequest();
 
             var success = AvailabilityService.UpdateMultipleAvailabilities(updates);

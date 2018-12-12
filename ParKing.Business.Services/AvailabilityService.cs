@@ -4,6 +4,7 @@ using System.Text;
 using ParKing.Data.Engine;
 using ParKing.Data.Repository;
 using ParKing.Utils.Configuration;
+using Serilog;
 
 namespace ParKing.Business.Services
 {
@@ -27,12 +28,14 @@ namespace ParKing.Business.Services
             var currentLot = ParkingLotRepository.GetParkingLotById(update.Id);
             if (currentLot == null)
             {
+                Log.Logger.Warning("Received update for unknown parking lot.");
                 return UpdateStatus.NonExistent;
             }
 
             var availability = ParkingAvailabilityRepository.GetAvailabilityByLotId(currentLot.Id);
             if (availability == null)
             {
+                Log.Logger.Information($"Current availability for lot {currentLot.Id} is null. Creating new one.");
                 var newAvailability = new ParkingAvailability()
                 {
                     Id = Guid.NewGuid(),
@@ -44,11 +47,13 @@ namespace ParKing.Business.Services
                 newAvailability.Lot = currentLot;
                 currentLot.Availability = newAvailability;
 
+                Log.Logger.Information($"Inserting new availability for lot {currentLot.Id}");
                 ParkingLotRepository.UpdateParkingLot(currentLot);
                 ParkingAvailabilityRepository.AddAvailability(newAvailability);
             }
             else
             {
+                Log.Logger.Information($"Updating lot {currentLot.Id}");
                 currentLot.Availability.Available = update.Availability;
                 currentLot.Availability.UpdatedAt = DateTime.UtcNow;
                 ParkingLotRepository.UpdateParkingLot(currentLot);

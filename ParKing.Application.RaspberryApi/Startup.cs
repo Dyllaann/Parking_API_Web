@@ -40,7 +40,6 @@ namespace ParKing.Application.RaspberryApi
             AddSwagger(services);
             AddDatabase(services);
             AddDependencies(services);
-            Log.Logger.Information($"Startup complete at {DateTime.UtcNow}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,11 +81,10 @@ namespace ParKing.Application.RaspberryApi
 
         private void AddLogging()
         {
-            new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .WriteTo.Logzio(Config.LogzIoToken, 5, new TimeSpan(0, 0, 0, 10))
                 .CreateLogger();
-            Log.Logger.Information($"Logger initialized at {DateTime.UtcNow}");
         }
 
         private static void AddSwagger(IServiceCollection services)

@@ -80,5 +80,25 @@ namespace ParKing.Business.Services
 
         #endregion
 
+        public bool AddLot(Guid id)
+        {
+            var lot = new ParkingLot()
+            {
+                Id = id,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.MinValue,
+                HasChargingStation = false,
+                PricingZone = "",
+                Availability = new ParkingAvailability()
+                {
+                    Id = Guid.NewGuid(),
+                    Available = false,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.MinValue
+                }
+            };
+            ParkingAvailabilityRepository.AddLot(lot);
+            return true;
+        }
     }
 }

@@ -13,7 +13,7 @@ using Serilog;
 
 namespace ParKing.Application.RaspberryApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/availability")]
     public class AvailabilityController : Controller
     {
         public Config Configuration{get; set; }

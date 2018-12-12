@@ -13,8 +13,8 @@ namespace ParKing.Data.Migrations
                 {
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<byte[]>(nullable: false),
-                    Available = table.Column<short>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    Available = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,10 +27,10 @@ namespace ParKing.Data.Migrations
                 {
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<byte[]>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     PricingZone = table.Column<string>(nullable: true),
-                    HasChargingStation = table.Column<short>(nullable: false),
-                    AvailabilityId = table.Column<byte[]>(nullable: false)
+                    HasChargingStation = table.Column<bool>(nullable: false),
+                    AvailabilityId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,10 +49,10 @@ namespace ParKing.Data.Migrations
                 {
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<byte[]>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
-                    ParkingLotId = table.Column<byte[]>(nullable: false)
+                    ParkingLotId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

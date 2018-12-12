@@ -33,5 +33,12 @@ namespace ParKing.Data.Repository
             Context.SaveChanges();
             return true;
         }
+    
+        public void AddLot(ParkingLot lot)
+        {
+            if (lot == null) return;
+            Context.ParkingLots.Add(lot);
+            Context.SaveChanges();
+        }
     }
 }

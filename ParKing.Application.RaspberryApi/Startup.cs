@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParKing.Application.RaspberryApi.Middleware;
 using ParKing.Business.Services;
 using ParKing.Data;
 using ParKing.Data.Repository;
@@ -45,32 +46,9 @@ namespace ParKing.Application.RaspberryApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger(c =>
-                {
-                    c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-                    {
-                        swaggerDoc.BasePath = string.Empty;
-                    });
-                });
+            EnableSwagger(app, env);
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/swagger/v1/swagger.json", "My API V1");
-                    c.RoutePrefix = "docs";
-                });
-
-            //Set develop settings
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             //Setup MVC and HTTPS
             app.UseHttpsRedirection();
@@ -126,6 +104,36 @@ namespace ParKing.Application.RaspberryApi
             //Register Services
             services.AddTransient<AvailabilityService>();
 
+        }
+
+        private static void EnableSwagger(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(c =>
+            {
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    swaggerDoc.BasePath = string.Empty;
+                });
+            });
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "docs";
+            });
+
+            //Set develop settings
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }           
         }
         #endregion
     }

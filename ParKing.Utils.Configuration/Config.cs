@@ -14,6 +14,8 @@ namespace ParKing.Utils.Configuration
 
         public string DatabaseConnectionString => GetConfigurationOption(Main.Database.ConnectionString, "Database Connectionstring");
         public string LogzIoToken => GetConfigurationOption(Main.Logging.LogzIoToken, "LogzIoToken");
+        public string AuthUsername => GetConfigurationOption(Main.Authentication.Username, "Authentication Username");
+        public string AuthPassword => GetConfigurationOption(Main.Authentication.Password, "Authentication Password");
 
 
         private static string GetConfigurationOption(string configValue, string configKey)

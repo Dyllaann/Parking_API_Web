@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -70,6 +71,17 @@ namespace ParKing.Application.RaspberryApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
+                c.AddSecurityDefinition("Basic", new ApiKeyScheme
+                {
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey",
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Basic", Array.Empty<string>() }
+                });
+
                 c.SwaggerDoc("v1", new Info { Title = "ParKing MobileAPI", Version = "v1" });
             });
         }

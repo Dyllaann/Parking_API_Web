@@ -131,9 +131,18 @@ namespace ParKing.Application.RaspberryApi
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
+            var environment = Environment.GetEnvironmentVariable("env");
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                if (!string.IsNullOrEmpty(environment) && environment == "Dev")
+                {
+                    c.SwaggerEndpoint("/swagger/swagger/v1/swagger.json", "My API V1");
+                }
+                else
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                }
+
                 c.RoutePrefix = "docs";
             });
 

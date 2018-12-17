@@ -11,6 +11,7 @@ using Serilog;
 
 namespace ParKing.Application.MobileApi.Controllers
 {
+    [Route("api/availability")]
     public class AvailabilityController : Controller
     {
         public Config Configuration{get; set; }

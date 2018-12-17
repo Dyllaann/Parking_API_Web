@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using ParKing.Application.MobileApi.Middleware;
 using ParKing.Business.Services;
 using ParKing.Data;
 using ParKing.Data.Repository;
@@ -32,6 +35,7 @@ namespace ParKing.Application.MobileApi
         {
             ServiceCollection = services;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
             services.AddOptions();
             services.AddEntityFrameworkSqlServer();
 
@@ -96,6 +100,9 @@ namespace ParKing.Application.MobileApi
 
         private static void AddDependencies(IServiceCollection services)
         {
+            //Register HttpClients
+            services.AddHttpClient<AuthenticationMiddleware>();
+
             //Register Repositories
             services.AddTransient<ParkingLotRepository>();
             services.AddTransient<ParkingAvailabilityRepository>();

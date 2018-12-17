@@ -1,46 +1,43 @@
 ﻿using System;
-using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ParKing.Utils.Configuration;
 using Serilog;
 
-namespace ParKing.Application.RaspberryApi.Middleware
+namespace ParKing.Application.MobileApi.Middleware
 {
     public class AuthenticationMiddleware
     {
+        private readonly HttpClient _httpClient;
         private readonly RequestDelegate _next;
         private Config Config { get; }
 
-        public AuthenticationMiddleware(RequestDelegate next, Config config)
+        public AuthenticationMiddleware(HttpClient httpClient, RequestDelegate next, Config config)
         {
+            _httpClient = httpClient;
             _next = next;
             Config = config;
-        }
+        }   
 
         public async Task Invoke(HttpContext context)
         {
             string authHeader = context.Request.Headers["Authorization"];
-            if (authHeader != null && authHeader.StartsWith("Basic "))
+            if (authHeader != null && authHeader.StartsWith("Bearer "))
             {
-                var configuredUsername = Config.AuthUsername;
-                var configuredPassword = Config.AuthPassword;
-                const string seperator = ":";
 
-                var configuredBytes = Encoding.UTF8.GetBytes(configuredUsername + seperator + configuredPassword);
-                var configured64 = Convert.ToBase64String(configuredBytes);
                 
-                //Extract credentials
-                var requestAuth = authHeader.Substring("Basic ".Length).Trim();
 
-                if(configured64 == requestAuth)
+                if (true == true)
                 {
                     await _next(context);
                 }
                 else
                 {
-                    Log.Logger.Warning($"Unauthorized using auth value '{authHeader}'.  (Original request: {context.Request.Path})");
+                    Log.Logger.Warning($"Unauthorized.");
                     context.Response.StatusCode = 401; //Unauthorized
                 }
             }
@@ -52,4 +49,5 @@ namespace ParKing.Application.RaspberryApi.Middleware
             }
         }
     }
+
 }

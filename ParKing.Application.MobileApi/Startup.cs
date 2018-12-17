@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,8 +36,10 @@ namespace ParKing.Application.MobileApi
         public void ConfigureServices(IServiceCollection services)
         {
             ServiceCollection = services;
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("localhost"));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOptions();
             services.AddEntityFrameworkSqlServer();
 
@@ -44,6 +48,7 @@ namespace ParKing.Application.MobileApi
             AddSwagger(services);
             AddDatabase(services);
             AddDependencies(services);
+            AddCORS(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +61,7 @@ namespace ParKing.Application.MobileApi
             //Setup MVC and HTTPS
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
         }
 
         #region Registration of Services
@@ -138,6 +144,20 @@ namespace ParKing.Application.MobileApi
             {
                 app.UseHsts();
             }
+        }
+
+        private static void AddCORS(IServiceCollection services)
+        {
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin(); // For anyone access.
+            corsBuilder.AllowCredentials();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
+            });
         }
 
         #endregion

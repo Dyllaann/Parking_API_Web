@@ -100,5 +100,23 @@ namespace ParKing.Business.Services
             ParkingAvailabilityRepository.AddLot(lot);
             return true;
         }
+
+        public List<MapLocation> GetAvailabilities()
+        {
+            var lots = ParkingLotRepository.GetAllLots();
+            var locations = new List<MapLocation>();
+            foreach (var lot in lots)
+            {
+                locations.Add(new MapLocation()
+                {
+                    Id = lot.Id,
+                    Available = lot.Availability.Available,
+                    Latitude = lot.Location.Latitude,
+                    Longitude = lot.Location.Longitude
+                });
+            }
+
+            return locations;
+        }
     }
 }

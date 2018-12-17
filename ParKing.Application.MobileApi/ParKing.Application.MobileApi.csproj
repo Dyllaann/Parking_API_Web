@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParKing.Business.Services\ParKing.Business.Services.csproj" />
+    <ProjectReference Include="..\ParKing.Data.Repository\ParKing.Data.Repository.csproj" />
     <ProjectReference Include="..\ParKing.Data\ParKing.Data.csproj" />
     <ProjectReference Include="..\ParKing.Utils.Configuration\ParKing.Utils.Configuration.csproj" />
   </ItemGroup>

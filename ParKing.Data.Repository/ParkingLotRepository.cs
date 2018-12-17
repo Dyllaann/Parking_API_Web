@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using ParKing.Data.Engine;
 
 namespace ParKing.Data.Repository
@@ -25,6 +26,11 @@ namespace ParKing.Data.Repository
             Context.ParkingLots.Update(lot);
             Context.SaveChanges();
             return true;
+        }
+
+        public List<ParkingLot> GetAllLots()
+        {
+            return Context.ParkingLots.Include(p => p.Location).Include(p => p.Availability).ToList();
         }
     }
 }

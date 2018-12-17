@@ -23,7 +23,7 @@ namespace ParKing.Application.MobileApi.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("all")]
         public IActionResult GetAvailabilities()
         {
             Log.Logger.Information($"Starting {MethodBase.GetCurrentMethod().Name}");
